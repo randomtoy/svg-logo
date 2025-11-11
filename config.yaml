@@ -1,0 +1,39 @@
+
+# List the files you want to mirror (SVGs or other assets).
+# Each item downloads to `path` (relative to repo root) from `url`.
+items:
+  # Languages
+  - path: languages/go.svg
+    url: https://commons.wikimedia.org/wiki/Special:FilePath/Go_Logo_Blue.svg
+  - path: languages/python.svg
+    url: https://commons.wikimedia.org/wiki/Special:FilePath/Python-logo-notext.svg
+  - path: languages/rust.svg
+    url: https://commons.wikimedia.org/wiki/Special:FilePath/Rust_programming_language_black_logo.svg
+  - path: languages/typescript.svg
+    url: https://commons.wikimedia.org/wiki/Special:FilePath/Typescript_logo_2020.svg
+
+  # DevOps / tools
+  - path: devops-tools/kubernetes.svg
+    url: https://commons.wikimedia.org/wiki/Special:FilePath/Kubernetes_logo_without_workmark.svg
+  - path: devops-tools/docker.svg
+    url: https://commons.wikimedia.org/wiki/Special:FilePath/Docker_(container_engine)_logo.svg
+  - path: devops-tools/ansible.svg
+    url: https://commons.wikimedia.org/wiki/Special:FilePath/Ansible_logo.svg
+  - path: devops-tools/jenkins.svg
+    url: https://get.jenkins.io/art/jenkins-logo/logo.svg
+  - path: devops-tools/gitlab.svg
+    url: https://commons.wikimedia.org/wiki/Special:FilePath/GitLab_logo.svg
+  - path: devops-tools/github.svg
+    url: https://commons.wikimedia.org/wiki/Special:FilePath/GitHub.svg
+  - path: devops-tools/prometheus.svg
+    url: https://commons.wikimedia.org/wiki/Special:FilePath/Prometheus_software_logo.svg
+  - path: devops-tools/grafana.svg
+    url: https://commons.wikimedia.org/wiki/Special:FilePath/Grafana_icon.svg
+  - path: devops-tools/nginx.svg
+    url: https://commons.wikimedia.org/wiki/Special:FilePath/Nginx_logo.svg
+  - path: devops-tools/redis.svg
+    url: https://commons.wikimedia.org/wiki/Special:FilePath/Redis_logo.svg
+  - path: devops-tools/postgresql.svg
+    url: https://commons.wikimedia.org/wiki/Special:FilePath/Postgresql_elephant.svg
+  - path: devops-tools/terraform.svg
+    url: https://commons.wikimedia.org/wiki/Special:FilePath/Terraform_Logo.svg
