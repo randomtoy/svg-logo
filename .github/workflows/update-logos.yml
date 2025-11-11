@@ -1,0 +1,48 @@
+name: Update Logos
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '17 3 * * 2'  # еженедельно по вторникам 03:17 UTC
+  push:
+    paths:
+      - 'config.yaml'
+      - 'cmd/**.go'
+      - 'internal/**.go'
+      - '.github/workflows/update-logos.yml'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # нужно для push
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24.x'
+
+      - name: Ensure config.yaml
+        run: |
+          if [ ! -f config.yaml ]; then cp example.config.yaml config.yaml; fi
+
+      - name: Run fetcher
+        run: |
+          go run ./cmd/main.go -config config.yaml
+
+      - name: Commit changes if any
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A
+            git commit -m "chore: mirror logos (CI)"
+            git push
+          else
+            echo "No changes."
+          fi
