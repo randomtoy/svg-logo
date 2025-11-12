@@ -1,6 +1,7 @@
-
-# List the files you want to mirror (SVGs or other assets).
-# Each item downloads to `path` (relative to repo root) from `url`.
+svg:
+  # Output directory for downloaded SVG files
+    output_dir: ./svg-logos
+  
 items:
   # Languages
   - path: languages/go.svg

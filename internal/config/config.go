@@ -7,6 +7,10 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+type SvgLogo struct {
+	OutputDir string `yaml:"output_dir"` // Directory to save downloaded SVG files
+}
+
 type Item struct {
 	Path    string `yaml:"path"`              // Relative path to the SVG file
 	URL     string `yaml:"url"`               // Source URL
@@ -15,7 +19,8 @@ type Item struct {
 }
 
 type Config struct {
-	Items []Item `yaml:"items"`
+	Items   []Item  `yaml:"items"`
+	SvgLogo SvgLogo `yaml:"svg"`
 }
 
 func Load(path string) (*Config, error) {
