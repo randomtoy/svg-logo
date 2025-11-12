@@ -51,6 +51,7 @@ func main() {
 		ch <- i
 	}
 	close(ch)
+	downloader := downloader.New(cfg.SvgLogo.OutputDir)
 
 	for i := 0; i < flags.Parallel; i++ {
 		wg.Add(1)

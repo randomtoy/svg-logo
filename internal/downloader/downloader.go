@@ -11,6 +11,10 @@ import (
 	"time"
 )
 
+type Downloader struct {
+	OutputDir string
+}
+
 type Meta struct {
 	ETag         string `json:"etag,omitempty"`
 	LastModified string `json:"last_modified,omitempty"`
@@ -18,8 +22,15 @@ type Meta struct {
 	UpdatedAt    string `json:"updated_at,omitempty"`
 }
 
-func Download(ctx context.Context, outPath, url string) (updated bool, status string, err error) {
-	metaPath := outPath + ".meta.json"
+func New(outputDir string) *Downloader {
+	return &Downloader{
+		OutputDir: outputDir,
+	}
+}
+
+func (d *Downloader) Download(ctx context.Context, outPath, url string) (updated bool, status string, err error) {
+	fullPath := filepath.Join(d.OutputDir, outPath)
+	metaPath := fullPath + ".meta.json"
 
 	var meta Meta
 	b, err := os.ReadFile(metaPath)
@@ -59,13 +70,13 @@ func Download(ctx context.Context, outPath, url string) (updated bool, status st
 		return false, "", fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	err = os.MkdirAll(filepath.Dir(outPath), 0o755)
+	err = os.MkdirAll(filepath.Dir(fullPath), 0o755)
 
 	if err != nil {
 		return false, "", fmt.Errorf("create directories: %w", err)
 	}
 
-	tmp := outPath + ".tmp"
+	tmp := fullPath + ".tmp"
 	f, err := os.Create(tmp)
 	if err != nil {
 		return false, "", fmt.Errorf("create temp file: %w", err)
@@ -77,7 +88,7 @@ func Download(ctx context.Context, outPath, url string) (updated bool, status st
 	}
 	f.Close()
 
-	if err := os.Rename(tmp, outPath); err != nil {
+	if err := os.Rename(tmp, fullPath); err != nil {
 		return false, "", fmt.Errorf("rename temp file: %w", err)
 	}
 
